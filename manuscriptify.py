@@ -12,10 +12,10 @@ import subprocess
 import tempfile
 
 
-app = Flask(__name__)
-app.secret_key = 'asdf'
+application = Flask(__name__)
+application.secret_key = 'asdf'
 
-@app.route('/', methods=['POST', 'GET'])
+@application.route('/', methods=['POST', 'GET'])
 def manuscriptify():
     if request.method == 'POST':
         # process and download file
@@ -48,11 +48,21 @@ def manuscriptify():
             result = f.read()
         shutil.rmtree(tempdir, True)
         return Response(result, mimetype='application/pdf')
-    return render_template('front.html')
-
-
-
+    try:
+        input_formats = subprocess.check_output(
+            ['pandoc', '--list-input-formats'])
+        input_formats = input_formats.decode()
+    except:
+        input_formats = '''
+        I can't tell for sure, pandoc isn't new enough.  It's usually this:
+        Input formats:  commonmark, docbook, docx, epub, haddock, html, json*, latex,
+                markdown, markdown_github, markdown_mmd, markdown_phpextra,
+                markdown_strict, mediawiki, native, odt, opml, org, rst, t2t,
+                textile, twiki
+                [ *only Pandoc's JSON version of native AST]
+        '''
+    return render_template('front.html', input_formats=input_formats.strip())
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run()

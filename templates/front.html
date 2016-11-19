@@ -2,28 +2,42 @@
 
 <html>
     <head>
-        <title>manuscriptify</title>
+        <title>Manuscriptify</title>
+        <style>
+        th {
+            text-align: right;
+        }
+        </style>
     </head>
     <body>
+        <h1>Manuscriptify</h1>
+        <p>Attempt to produce a SMF-esque PDF from an input file</p>
         <ul>
             {% for message in get_flashed_messages() %}
                 <li>{{ message }}</li>
             {% endfor %}
         </ul>
         <form method="post" enctype="multipart/form-data">
-            <p>
-                <label for="id_title">Manuscript title</label>
-                <input type="text" name="title" id="id_title" />
-            </p>
-            <p>
-                <label for="id_author">Manuscript author</label>
-                <input type="text" name="author" id="id_author" />
-            </p>
-            <p>
-                <label for="id_input">File to manuscriptify</label>
-                <input type="file" name="input" id="id_input" />
-            </p>
-            <button type="submit">Go</button>
+            <table>
+                <tr>
+                    <th><label for="id_title">Manuscript title</label></th>
+                    <td><input type="text" name="title" id="id_title" /></td>
+                </tr>
+                <tr>
+                    <th><label for="id_author">Manuscript author</label></th>
+                    <td><input type="text" name="author" id="id_author" /></td>
+                </tr>
+                <tr>
+                    <th><label for="id_input">File to manuscriptify</label></th>
+                    <td><input type="file" name="input" id="id_input" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button type="submit">Go</button></td>
+                </tr>
+            </table>
         </form>
+        <h2>I know how to handle:</h2>
+        <pre>{{ input_formats }}</pre>
     </body>
 </html>
