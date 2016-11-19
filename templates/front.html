@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>manuscriptify</title>
+    </head>
+    <body>
+        <ul>
+            {% for message in get_flashed_messages() %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" enctype="multipart/form-data">
+            <p>
+                <label for="id_title">Manuscript title</label>
+                <input type="text" name="title" id="id_title" />
+            </p>
+            <p>
+                <label for="id_author">Manuscript author</label>
+                <input type="text" name="author" id="id_author" />
+            </p>
+            <p>
+                <label for="id_input">File to manuscriptify</label>
+                <input type="file" name="input" id="id_input" />
+            </p>
+            <button type="submit">Go</button>
+        </form>
+    </body>
+</html>
